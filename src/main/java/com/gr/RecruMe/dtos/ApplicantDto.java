@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class ApplicantDto {
     private String firstName;
     private String lastName;
-    private int yearFfBirth;
+    private int yearOfBirth;
     private int monthOfBirth;
     private int dayOfBirth;
     private String address;

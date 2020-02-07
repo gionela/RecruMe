@@ -7,6 +7,8 @@ import com.gr.RecruMe.repositories.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -28,8 +30,9 @@ public class ApplicantService {
         applicant.setLastName(applicantDto.getLastName());
         applicant.setAddress(applicantDto.getAddress());
         applicant.setRegion(applicantDto.getRegion());
-//        applicant.setEducationLevel(EducationLevel));
-        return applicant;
+        applicant.setEducationLevel(EducationLevel.valueOf(applicantDto.getEducationLevel()));
+        applicant.setDob(new GregorianCalendar(applicantDto.getYearOfBirth(),applicantDto.getMonthOfBirth(),applicantDto.getDayOfBirth()));
+        return applicantRepository.save(applicant);
     }
 
 
