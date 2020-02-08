@@ -2,6 +2,8 @@ package com.gr.RecruMe.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -15,5 +17,6 @@ public class ApplicantSkill {
     @ManyToOne
     private Applicant applicant;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)//delete also from all connecting tables
     private Skill skill;
 }

@@ -1,5 +1,5 @@
-INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address1', '1980-02-01','1','Bob','Marley', 'Athens')
-INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address2', '1985-03-10','3','AAA','Marley', 'Mykonos')
+INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address1', '1975-02-01','1','Bob','Marley', 'Athens')
+INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address2', '1990-03-10','3','AAA','Marley', 'Mykonos')
 INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address3', '1989-02-22','1','BBB','Marley', 'Athens')
 INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address4', '2001-02-01','2','Bob','Marley', 'Athens')
 

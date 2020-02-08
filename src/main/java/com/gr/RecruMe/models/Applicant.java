@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -23,5 +24,9 @@ public class Applicant {
     private String address;
     private String region;
     EducationLevel educationLevel;
+
+    @OneToMany //(cascade=CascadeType.ALL)
+    @JoinColumn
+    private Set<ApplicantSkill> applicantSkills;
 
 }

@@ -1,13 +1,19 @@
 package com.gr.RecruMe.services;
 
 import com.gr.RecruMe.dtos.ApplicantDto;
+import com.gr.RecruMe.dtos.ApplicantSkillDto;
 import com.gr.RecruMe.models.Applicant;
+import com.gr.RecruMe.models.ApplicantSkill;
 import com.gr.RecruMe.models.EducationLevel;
 import com.gr.RecruMe.repositories.ApplicantRepository;
+import com.gr.RecruMe.repositories.ApplicantSkillRepository;
+import com.gr.RecruMe.repositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,17 +21,21 @@ import java.util.stream.Collectors;
 public class ApplicantService {
     @Autowired
     private ApplicantRepository applicantRepository;
+    @Autowired
+    private SkillRepository skillRepository;
+    @Autowired
+    private ApplicantSkillRepository applicantSkillRepository;
 
     public List<Applicant> getAllApplicants() {
         return applicantRepository.findAll();
     }
 
-    public Applicant getApplicant(int id) {
+    public Applicant getApplicantById(int id) {
         return applicantRepository.findById(id).get();
     }
 
     /**
-     * reducing 1 from monthOfBirth and adding 1 to dayOfBirth to fix java's default counting on the corresponding parameter of GregorianCAlendar constructor
+     * reducing 1 from monthOfBirth and adding 1 to dayOfBirth to fix java's default counting on the corresponding parameter of GregorianCalendar constructor
      * @param applicantDto requires data for the new applicant's fields
      * @return a new applicant
      */
@@ -83,5 +93,34 @@ public class ApplicantService {
                 .stream()
                 .filter(applicant -> applicant.getFirstName().equals(firstName)&&applicant.getLastName().equals(lastName))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * gets all applicants within a given age range
+     * @param ageFrom older than
+     * @param ageTo younger than
+     * @return a list of the corresponding applicants
+     */
+    public List<Applicant> getApplicantByAgeRange(int ageFrom, int ageTo) {
+        int thisYear= Calendar.getInstance().get(Calendar.YEAR);// save current year to an integer variable
+        int yearTo= thisYear - ageFrom ; //calculate the corresponding year from the user's ageFrom input eg:2000 if ageFrom = 20
+        int yearFrom  = thisYear - ageTo; //calculate the corresponding year from the user's ageTo input eg:1980 if ageFrom = 40
+       return applicantRepository
+               .findAll()
+               .stream()
+               .filter(applicant -> applicant.getDob().get(Calendar.YEAR)>=yearFrom) //get all applicants younger than 40 years old
+               .filter(applicant -> applicant.getDob().get(Calendar.YEAR)<=yearTo) //get all applicants older than 20 years old
+               .collect(Collectors.toList());
+    }
+
+//    public ApplicantSkill saveNewApplicantSkill(ApplicantSkillDto applicantSkillDto){
+//        Applicant applicant = applicantRepository.findById(applicantSkillDto.getApplicantId()).get();
+//        ApplicantSkill as = new ApplicantSkill();
+//        applicantSkillDto.getSkills().forEach(skill -> {
+//            as.setApplicant(applicant);
+//            as.setSkill(skill);
+//        });
+//       return as;
+
     }
 }

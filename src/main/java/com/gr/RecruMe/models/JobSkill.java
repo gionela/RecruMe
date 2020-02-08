@@ -3,6 +3,8 @@ package com.gr.RecruMe.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -18,5 +20,6 @@ public class JobSkill {
     private Job job;
     @ManyToOne
     @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)//delete also from all connecting tables
     private Skill skill;
 }
