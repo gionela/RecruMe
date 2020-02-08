@@ -14,7 +14,9 @@ public class JobSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
+    @JoinColumn
     private Job job;
     @ManyToOne
+    @JoinColumn
     private Skill skill;
 }

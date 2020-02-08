@@ -12,6 +12,7 @@ import java.util.List;
 public class ApplicantController {
     @Autowired
     private ApplicantService applicantService;
+
     @GetMapping("applicants")
     public List<Applicant> getAllApplicantsController(){
         return applicantService.getAllApplicants();
@@ -22,9 +23,23 @@ public class ApplicantController {
         return applicantService.getApplicant(id);
     }
 
-    @PostMapping("/applicant")
+    @PostMapping("applicant")
     public Applicant saveNewApplicantController(@RequestBody ApplicantDto applicantDto) {
         return applicantService.saveNewApplicant(applicantDto);
+    }
+    @PutMapping("applicant/{id}")
+    public Applicant updateApplicantController(@PathVariable int id, ApplicantDto applicantDto){
+        return applicantService.updateApplicant(id,applicantDto);
+    }
+
+    @GetMapping("applicants/region/{region}")
+    public List<Applicant> getApplicantsByRegionController(@PathVariable String region){
+        return applicantService.getApplicantsByRegion(region);
+    }
+
+    @GetMapping("applicants/firstName/{firstName}/lastname/{lastName}")
+    public List<Applicant> getApplicantsByNameController(@PathVariable String firstName, @PathVariable String lastName){
+        return applicantService.getApplicantsByName(firstName,lastName);
     }
 
 }
