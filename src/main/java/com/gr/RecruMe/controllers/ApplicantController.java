@@ -46,7 +46,7 @@ public class ApplicantController {
      * @param lastName
      * @return the applicants with the required first names and last names
      */
-    @GetMapping("applicants/firstName/{firstName}/lastname/{lastName}")
+    @GetMapping("applicants/firstName/{firstName}/lastName/{lastName}")
     public List<Applicant> getApplicantsByNameController(@PathVariable String firstName, @PathVariable String lastName) {
         return applicantService.getApplicantsByName(firstName, lastName);
     }

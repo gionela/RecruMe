@@ -5,16 +5,14 @@ import com.gr.RecruMe.dtos.ApplicantSkillDto;
 import com.gr.RecruMe.models.Applicant;
 import com.gr.RecruMe.models.ApplicantSkill;
 import com.gr.RecruMe.models.EducationLevel;
+import com.gr.RecruMe.models.Skill;
 import com.gr.RecruMe.repositories.ApplicantRepository;
 import com.gr.RecruMe.repositories.ApplicantSkillRepository;
 import com.gr.RecruMe.repositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +45,25 @@ public class ApplicantService {
         applicant.setRegion(applicantDto.getRegion());
         applicant.setEducationLevel(EducationLevel.valueOf(applicantDto.getEducationLevel()));
         applicant.setDob(new GregorianCalendar(applicantDto.getYearOfBirth() , applicantDto.getMonthOfBirth()-1, applicantDto.getDayOfBirth()+1));
+        List<ApplicantSkill> as = new ArrayList<>();
+//        for (ApplicantSkill a: as){
+//            a.setApplicant(applicant);
+//            for(Skill s: applicantDto.getNewApplicantSkills()){
+//                a.setSkill(s);
+//            }
+//            as.add(a);
+//        }
+        for(Skill s: applicantDto.getNewApplicantSkills()){
+            for (ApplicantSkill a: as){
+                a.setApplicant(applicant);
+                a.setSkill(s);
+                as.add(a);
+            }
+        }
+//
+//            }
+
+        applicant.setApplicantSkills(as);
         return applicantRepository.save(applicant);
     }
 
@@ -122,5 +139,4 @@ public class ApplicantService {
 //        });
 //       return as;
 
-    }
 }

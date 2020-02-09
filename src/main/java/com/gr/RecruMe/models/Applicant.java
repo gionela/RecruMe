@@ -6,11 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Set;
+import java.util.List;
+
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 
@@ -25,8 +26,12 @@ public class Applicant {
     private String region;
     EducationLevel educationLevel;
 
-    @OneToMany //(cascade=CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER) //(cascade=CascadeType.ALL)
     @JoinColumn
-    private Set<ApplicantSkill> applicantSkills;
+    private List<ApplicantSkill> applicantSkills;
+
+    public Applicant(){
+        applicantSkills = new ArrayList<>();
+    }
 
 }

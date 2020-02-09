@@ -4,7 +4,7 @@ INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[la
 INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address4', '2001-02-01','2','Bob','Marley', 'Athens')
 
 INSERT INTO [dbo].[job]([company_name],[education_level_required],[job_title],[posted_date],[region])VALUES('Accenture','1', 'Java Developer', '2020-01-21','Athens')
-INSERT INTO [dbo].[job]([company_name],[education_level_required],[job_title],[posted_date],[region])VALUES('Company2','3', 'Job title 2', '2020-01-21','Piraeus')
+INSERT INTO [dbo].[job]([company_name],[education_level_required],[job_title],[posted_date],[region])VALUES('Company2','3', 'Job title 2', '2019-11-21','Piraeus')
 INSERT INTO [dbo].[job]([company_name],[education_level_required],[job_title],[posted_date],[region])VALUES('Company3','1', 'Job title 3', '2020-01-21','Kifisia')
 
 INSERT INTO [dbo].[skill]([skill_level],[skill_name])VALUES(1, 'Java')

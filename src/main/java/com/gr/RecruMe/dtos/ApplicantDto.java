@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,11 +23,11 @@ public class ApplicantDto {
     private String address;
     private String region;
     private int educationLevel;
-//    private Set<Skill>  aSkills;
-//
-//    public ApplicantDto(){
-//        aSkills = new HashSet<>();
-//    }
+    private List<Skill> newApplicantSkills;
+
+    public ApplicantDto(){
+        newApplicantSkills = new ArrayList<>();
+    }
 }
 /*
     "firstName": "CCC",
