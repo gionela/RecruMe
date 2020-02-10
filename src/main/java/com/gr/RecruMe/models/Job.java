@@ -23,6 +23,8 @@ public class Job {
     private Calendar postedDate;
     private EducationLevel educationLevelRequired;
     private SkillLevel skillLevelRequired;
+    @Column(columnDefinition = "bit default 1")
+    private boolean isActive;
 
     @OneToMany(mappedBy = "job" )
     @JsonIgnore

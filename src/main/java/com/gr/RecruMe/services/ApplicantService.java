@@ -173,5 +173,17 @@ public class ApplicantService {
         return applicantsThatHaveTheSkill;
     }
 
+    /**
+     * sets applicant inactive (soft delete)
+     * @param id applicant id
+     * @return updated applicant instance
+     */
+    public Applicant softDeleteApplicant(int id) {
+        Applicant applicant = applicantRepository.findById(id).get();
+        if (applicant == null)
+            return null;
+        applicant.setActive(false);
+        return applicantRepository.save(applicant);
+    }
 
 }

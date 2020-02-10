@@ -126,5 +126,17 @@ public class JobService {
                 .filter(job->job.getPostedDate().get(Calendar.DATE) == day)
                 .collect(Collectors.toList());
     }
+    /**
+     * sets job inactive (soft delete)
+     * @param id job id
+     * @return updated job instance/ made him unavailable
+     */
+    public Job softDeleteJob(int id) {
+        Job job = jobRepository.findById(id).get();
+        if (job == null)
+            return null;
+        job.setActive(false);
+        return jobRepository.save(job);
+    }
 
 }

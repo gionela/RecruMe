@@ -29,6 +29,8 @@ public class Applicant {
     private String region;
     private EducationLevel educationLevel;
     private SkillLevel skillLevel;
+    @Column(columnDefinition = "bit default 1")
+    private boolean isActive;
 //,fetch = FetchType.EAGER,cascade=CascadeType.ALL
     @OneToMany(mappedBy = "applicant" )
    // @JoinColumn
