@@ -10,8 +10,12 @@ import java.util.List;
 
 @RestController
 public class SkillController {
-    @Autowired
+
     private SkillService skillService;
+    @Autowired
+    public  SkillController(SkillService skillService){
+        this.skillService = skillService;
+    }
 
     @GetMapping("skills")
     public List<Skill> getAllSkillsController() {
@@ -32,7 +36,6 @@ public class SkillController {
     public Skill updateSkillController(@PathVariable int id, SkillDto skillDto) {
         return skillService.updateSkill(id, skillDto);
     }
-
 
     @DeleteMapping("skill/{id}")
     public void deleteProductByIdController(@PathVariable int id) {

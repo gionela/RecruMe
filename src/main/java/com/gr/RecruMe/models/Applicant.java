@@ -1,17 +1,20 @@
 package com.gr.RecruMe.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 
@@ -24,14 +27,14 @@ public class Applicant {
     private Calendar dob;
     private String address;
     private String region;
-    EducationLevel educationLevel;
-
-    @OneToMany(fetch = FetchType.EAGER) //(cascade=CascadeType.ALL)
-    @JoinColumn
+    private EducationLevel educationLevel;
+    private SkillLevel skillLevel;
+//,fetch = FetchType.EAGER,cascade=CascadeType.ALL
+    @OneToMany(mappedBy = "applicant" )
+   // @JoinColumn
+    @JsonIgnore
     private List<ApplicantSkill> applicantSkills;
 
-    public Applicant(){
-        applicantSkills = new ArrayList<>();
-    }
+
 
 }

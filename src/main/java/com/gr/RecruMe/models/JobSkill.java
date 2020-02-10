@@ -15,11 +15,11 @@ public class JobSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne
-    @JoinColumn
     private Job job;
     @ManyToOne
-    @JoinColumn
-    @OnDelete(action = OnDeleteAction.CASCADE)//delete also from all connecting tables
+//    @JoinColumn
+ //   @OnDelete(action = OnDeleteAction.CASCADE)//delete also from all connecting tables
     private Skill skill;
 }

@@ -17,11 +17,13 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Calendar dateFinalized;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private Applicant applicant;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-    private Job job;
     private MatchStatus matchStatus;
+
+    @OneToOne //(cascade = CascadeType.ALL)
+    private Applicant applicant;
+
+    @OneToOne  //(cascade = CascadeType.ALL)
+    private Job job;
+
+
 }

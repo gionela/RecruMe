@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +18,6 @@ public class JobDto {
     private int monthOfPost;
     private int dayOfPost;
     private int educationLevelRequired;
+    private int skillLevelRequired;
+    private List<Integer> skillsFromJobOffer;
 }

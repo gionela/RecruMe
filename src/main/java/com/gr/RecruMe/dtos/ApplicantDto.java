@@ -1,6 +1,6 @@
 package com.gr.RecruMe.dtos;
 
-import com.gr.RecruMe.models.ApplicantSkill;
+
 import com.gr.RecruMe.models.Skill;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-
+//@NoArgsConstructor
 @AllArgsConstructor
 public class ApplicantDto {
     private String firstName;
@@ -23,11 +23,13 @@ public class ApplicantDto {
     private String address;
     private String region;
     private int educationLevel;
-    private List<Skill> newApplicantSkills;
+    private int skillLevel;
 
-    public ApplicantDto(){
-        newApplicantSkills = new ArrayList<>();
-    }
+     private List<Integer> skillsFromUser;
+//
+//    public ApplicantDto() {
+//        applicantSkills = new ArrayList<>();
+//    }
 }
 /*
     "firstName": "CCC",

@@ -1,5 +1,6 @@
 package com.gr.RecruMe.dtos;
 
+import com.gr.RecruMe.models.Applicant;
 import com.gr.RecruMe.models.Skill;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 public class ApplicantSkillDto {
     private int applicantId;
-    private List<Skill> skills;
+    private List<SkillDto> skills;
 }
