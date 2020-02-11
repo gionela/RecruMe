@@ -15,15 +15,18 @@ INSERT INTO [dbo].[skill]([skill_name])VALUES( 'Angular')
 --
 INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-01',1, 1,3)
 INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-02-10',1, 3,1)
+INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-28',3, 1,2)
 INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-28',1, 1,2)
 --
 INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(1,1)
 INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(1,3)
-INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(2,4)
-INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(4,1)
+INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(1,4)
+INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(4,2)
 --
-INSERT INTO [dbo].[job_skill]([job_id],[skill_id])VALUES(1,2)
+INSERT INTO [dbo].[job_skill]([job_id],[skill_id])VALUES(1,1)
 INSERT INTO [dbo].[job_skill]([job_id],[skill_id])VALUES(1,3)
 INSERT INTO [dbo].[job_skill]([job_id],[skill_id])VALUES(2,2)
+INSERT INTO [dbo].[job_skill]([job_id],[skill_id])VALUES(3,2)
+
 --
 --
