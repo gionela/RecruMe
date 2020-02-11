@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 
@@ -36,6 +36,13 @@ public class Applicant {
    // @JoinColumn
     @JsonIgnore
     private List<ApplicantSkill> applicantSkills;
+
+    /**
+     * when created always active
+      */
+    public  Applicant(){
+        isActive = true;
+    }
 
 
 

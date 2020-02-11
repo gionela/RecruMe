@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Job {
@@ -30,5 +30,11 @@ public class Job {
     @JsonIgnore
     private List<JobSkill> jobSkills;
 
+    /**
+     * when created always active till set other
+     */
+    public Job(){
+        isActive = true;
+    }
 
 }

@@ -24,12 +24,8 @@ public class ApplicantDto {
     private String region;
     private int educationLevel;
     private int skillLevel;
+    private List<Integer> skillsFromUser;
 
-     private List<Integer> skillsFromUser;
-//
-//    public ApplicantDto() {
-//        applicantSkills = new ArrayList<>();
-//    }
 }
 /*
     "firstName": "CCC",
