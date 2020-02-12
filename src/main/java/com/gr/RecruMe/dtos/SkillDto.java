@@ -8,5 +8,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SkillDto {
     private String skillName;
-    private int skillLevel;
 }

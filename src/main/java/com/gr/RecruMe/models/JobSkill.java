@@ -18,8 +18,6 @@ public class JobSkill {
 
     @ManyToOne
     private Job job;
-    @ManyToOne
-//    @JoinColumn
- //   @OnDelete(action = OnDeleteAction.CASCADE)//delete also from all connecting tables
+    @ManyToOne// @OnDelete(action = OnDeleteAction.CASCADE)//delete also from all connecting tables
     private Skill skill;
 }

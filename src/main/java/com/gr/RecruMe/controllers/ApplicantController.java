@@ -2,6 +2,7 @@ package com.gr.RecruMe.controllers;
 
 import com.gr.RecruMe.dtos.ApplicantDto;
 import com.gr.RecruMe.dtos.ApplicantSkillDto;
+import com.gr.RecruMe.dtos.UpdateApplicantDto;
 import com.gr.RecruMe.models.Applicant;
 import com.gr.RecruMe.models.ApplicantSkill;
 import com.gr.RecruMe.services.ApplicantService;
@@ -54,12 +55,12 @@ public class ApplicantController {
     /**
      * updates the fields of an existing applicant if the user input is not null on each required field
      * @param id to get applicant
-     * @param applicantDto requires new data for applicant fields
+     * @param updateApplicantDto requires new data for applicant fields
      * @return the updated applicant
      */
     @PutMapping("applicant/{id}")
-    public Applicant updateApplicantController(@PathVariable int id, ApplicantDto applicantDto) {
-        return applicantService.updateApplicant(id, applicantDto);
+    public Applicant updateApplicantController(@PathVariable int id, UpdateApplicantDto updateApplicantDto) {
+        return applicantService.updateApplicant(id, updateApplicantDto);
     }
     /**
      * search all applicants by region

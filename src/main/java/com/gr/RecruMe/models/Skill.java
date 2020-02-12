@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,12 +21,10 @@ public class Skill {
 
 
     @OneToMany(mappedBy = "skill") //, fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    //@JoinColumn
     @JsonIgnore
     private List<ApplicantSkill> skillApplicantSkill;
 
     @OneToMany(mappedBy = "skill") //, fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    //@JoinColumn
     @JsonIgnore
     private List<JobSkill> skillJobSkill;
 

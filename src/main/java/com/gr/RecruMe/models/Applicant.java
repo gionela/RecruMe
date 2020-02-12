@@ -33,7 +33,6 @@ public class Applicant {
     private boolean isActive;
 //,fetch = FetchType.EAGER,cascade=CascadeType.ALL
     @OneToMany(mappedBy = "applicant" )
-   // @JoinColumn
     @JsonIgnore
     private List<ApplicantSkill> applicantSkills;
 

@@ -37,8 +37,8 @@ public class SkillController {
         return skillService.updateSkill(id, skillDto);
     }
 
-    @DeleteMapping("skill/{id}")
-    public void deleteProductByIdController(@PathVariable int id) {
-        skillService.deleteSkillById(id);
-    }
+//    @DeleteMapping("skill/{id}")
+//    public void deleteSkillByIdController(@PathVariable int id) {
+//        skillService.deleteSkillById(id);
+//    }
 }

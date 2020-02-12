@@ -11,5 +11,5 @@ public class MatchDto {
 
     private int jobId;
     private int applicantId;
-    private int matchStatus;
+
 }

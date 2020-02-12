@@ -13,11 +13,13 @@ import java.util.List;
 public class SkillService {
 
     private SkillRepository skillRepository;
+
     @Autowired
-    public SkillService(SkillRepository skillRepository){
+    public SkillService(SkillRepository skillRepository) {
         this.skillRepository = skillRepository;
 
     }
+
     public List<Skill> getAllSkills() {
         return skillRepository.findAll();
     }
@@ -33,12 +35,11 @@ public class SkillService {
     public Skill saveNewSkill(SkillDto skillDto) {
         Skill skill = new Skill();
         skill.setSkillName(skillDto.getSkillName());
-
         return skillRepository.save(skill);
     }
 
     /**
-     * @param id get skill
+     * @param id       get skill
      * @param skillDto required data for the new skill's fields
      * @return updated skill
      */
@@ -48,8 +49,8 @@ public class SkillService {
             skill.setSkillName(skillDto.getSkillName());
         return skillRepository.save(skill);
     }
-
-    public void deleteSkillById(int id) {
-        skillRepository.deleteById(id);
-    }
 }
+//    public void deleteSkillById(int id) {
+//        skillRepository.deleteById(id);
+//    }
+//}

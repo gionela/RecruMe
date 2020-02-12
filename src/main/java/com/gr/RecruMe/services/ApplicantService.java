@@ -2,6 +2,7 @@ package com.gr.RecruMe.services;
 
 import com.gr.RecruMe.dtos.ApplicantDto;
 import com.gr.RecruMe.dtos.ApplicantSkillDto;
+import com.gr.RecruMe.dtos.UpdateApplicantDto;
 import com.gr.RecruMe.models.*;
 import com.gr.RecruMe.repositories.ApplicantRepository;
 import com.gr.RecruMe.repositories.ApplicantSkillRepository;
@@ -51,7 +52,7 @@ public class ApplicantService {
      * @param id applicant's id
      * @return the corresponding applicant
      */
-    public Applicant getApplicantById(int id) {
+    public Applicant getApplicantById(int id) { //EXCEPTION IF NOT EXISTS
         return applicantRepository.findById(id).get();
     }
 
@@ -91,26 +92,25 @@ public class ApplicantService {
      * updates the fields of an existing applicant if the user input is not null on each required field
      * birthday is not allowed to be updated
      * the fields of firstName and lastName are updated only of they are null in the existing applicant
-     * therefore firstName and lastName and birthday if entered are not allowed to be updated
      *
      * @param id           to get applicant
-     * @param applicantDto requires new data for applicant fields
+     * @param updateApplicantDto requires new data for applicant fields
      * @return the updated applicant
      */
-    public Applicant updateApplicant(int id, ApplicantDto applicantDto) {
+    public Applicant updateApplicant(int id, UpdateApplicantDto updateApplicantDto) { // EXCEPTION IF NOT EXISTS
         Applicant applicant = applicantRepository.findById(id).get();
-        if ((applicantDto.getFirstName() != null) && (applicant.getFirstName() != null))
-            applicant.setFirstName(applicantDto.getFirstName());
-        if ((applicantDto.getLastName() != null) && (applicant.getFirstName() != null))
-            applicant.setLastName(applicantDto.getLastName());
-        if (applicantDto.getEducationLevel() != 0)
-            applicant.setEducationLevel(EducationLevel.valueOf(applicantDto.getEducationLevel()));
-        if (applicantDto.getRegion() != null)
-            applicant.setRegion(applicantDto.getRegion());
-        if (applicantDto.getAddress() != null)
-            applicant.setAddress(applicantDto.getAddress());
-        if (applicantDto.getSkillLevel() != 0)
-            applicant.setSkillLevel(SkillLevel.valueOf(applicantDto.getSkillLevel()));
+        if ((updateApplicantDto.getFirstName() != null) && (applicant.getFirstName() != null))
+            applicant.setFirstName(updateApplicantDto.getFirstName());
+        if ((updateApplicantDto.getLastName() != null) && (applicant.getFirstName() != null))
+            applicant.setLastName(updateApplicantDto.getLastName());
+        if (updateApplicantDto.getEducationLevel() != 0)
+            applicant.setEducationLevel(EducationLevel.valueOf(updateApplicantDto.getEducationLevel()));
+        if (updateApplicantDto.getRegion() != null)
+            applicant.setRegion(updateApplicantDto.getRegion());
+        if (updateApplicantDto.getAddress() != null)
+            applicant.setAddress(updateApplicantDto.getAddress());
+        if (updateApplicantDto.getSkillLevel() != 0)
+            applicant.setSkillLevel(SkillLevel.valueOf(updateApplicantDto.getSkillLevel()));
         return applicantRepository.save(applicant);
     }
 
@@ -135,7 +135,7 @@ public class ApplicantService {
      * @param lastName
      * @return the applicants with the required first names and last names
      */
-    public List<Applicant> getApplicantsByName(String firstName, String lastName) {
+    public List<Applicant> getApplicantsByName(String firstName, String lastName) { //EXCEPTION IF NOT EXISTS
         return applicantRepository
                 .findAll()
                 .stream()
@@ -150,7 +150,7 @@ public class ApplicantService {
      * @param ageTo   younger than
      * @return a list of the corresponding applicants
      */
-    public List<Applicant> getApplicantByAgeRange(int ageFrom, int ageTo) {
+    public List<Applicant> getApplicantByAgeRange(int ageFrom, int ageTo) { // EXCEPTION IF NOT EXISTS
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);// save current year to an integer variable
         int yearTo = thisYear - ageFrom; //calculate the corresponding year from the user's ageFrom input eg:2000 if ageFrom = 20
         int yearFrom = thisYear - ageTo; //calculate the corresponding year from the user's ageTo input eg:1980 if ageFrom = 40
@@ -162,7 +162,7 @@ public class ApplicantService {
                 .collect(Collectors.toList());
     }
 
-    public List<Applicant> getAllApplicantsBySkill(int skillId) {
+    public List<Applicant> getAllApplicantsBySkill(int skillId) { //EXCEPTION IF SKILL DOES NOT EXIST
         List<ApplicantSkill> as = applicantSkillRepository.findAll()
                 .stream().filter(applicantSkill -> applicantSkill.getSkill().getId() == skillId).collect(Collectors.toList());
 
@@ -173,17 +173,17 @@ public class ApplicantService {
         return applicantsThatHaveTheSkill;
     }
 
-    /**
-     * sets applicant inactive (soft delete)
-     * @param id applicant id
-     * @return updated applicant instance
-     */
-    public Applicant softDeleteApplicant(int id) {
-        Applicant applicant = applicantRepository.findById(id).get();
-        if (applicant == null)
-            return null;
-        applicant.setActive(false);
-        return applicantRepository.save(applicant);
-    }
+//    /**
+//     * sets applicant inactive (soft delete)
+//     * @param id applicant id
+//     * @return updated applicant instance
+//     */
+//    public Applicant softDeleteApplicant(int id) {
+//        Applicant applicant = applicantRepository.findById(id).get();
+//        if (applicant == null)
+//            return null;
+//        applicant.setActive(false);
+//        return applicantRepository.save(applicant);
+//    }
 
 }

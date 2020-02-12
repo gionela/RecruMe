@@ -1,7 +1,6 @@
 
 package com.gr.RecruMe.services;
 
-import com.gr.RecruMe.dtos.ApplicantDto;
 import com.gr.RecruMe.dtos.MatchDto;
 import com.gr.RecruMe.models.*;
 import com.gr.RecruMe.repositories.ApplicantRepository;
@@ -10,8 +9,8 @@ import com.gr.RecruMe.repositories.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,6 @@ public class MatchService {
 
     /**
      * finds all registered matches in database
-     *
      * @return a list of all applicants registered
      */
     public List<Match> getAllMatches() {
@@ -39,12 +37,91 @@ public class MatchService {
     }
 
     /**
-     * gets a list of the required skills from a registered job offer
+     * finds all the manual matches from all matches
      *
+     * @return a list of all manual matches
+     */
+    public List<Match> getAllManualMatches() { // remember to set this private if you do not eventually make controller
+        return matchRepository.findAll()
+                .stream()
+                .filter(match -> match.getMatchStatus().equals(MatchStatus.MANUAL))
+                .collect(Collectors.toList());
+    }
+
+    public List<Match> getAllAutoMatches() { // remember to set this private if you do not eventually make controller
+        return matchRepository.findAll()
+                .stream()
+                .filter(match -> match.getMatchStatus().equals(MatchStatus.AUTO))
+                .collect(Collectors.toList());
+    }
+    /**
+     *removes a manual match from all matches
+     * @param id match id
+     */
+    public void deleteManualMatchById(int id) {
+        List<Match> manualMatches = getAllManualMatches();
+        Match match1 =  manualMatches.stream().filter(match -> match.getId() == id).findFirst().get();
+        matchRepository.deleteById(match1.getId());
+    }
+
+    /**
+     * Saves a new match.
+     * Sets its Status to Manual
+     * Sets the respective applicant and job offer to INACTIVE
+     * @param matchDto get new Match Data from front end
+     * @return a new Match. which is also a manual match
+     */
+    public Match saveNewManualMatch(MatchDto matchDto) {
+        Applicant applicant = applicantRepository.findById(matchDto.getApplicantId()).get(); // exception if not exists
+        Job job = jobRepository.findById(matchDto.getJobId()).get();
+        Match match = new Match();
+        match.setApplicant(applicant);
+        match.setJob(job);
+        match.setMatchStatus(MatchStatus.MANUAL);
+        applicant.setActive(false);
+        job.setActive(false);
+        return matchRepository.save(match);
+    }
+
+    /**
+     * Updates an existing match's, by id, matchStatus to Final when invoked
+     * Used as business logic to provide FINALIZED functionality
+     * sets the finalized date of the match to the current date and time
+     * Used as an update example.
+     * @param matchId       match id
+     * @return updated Match object (row in database)
+     */
+    public Match updateManualToFinal(int matchId) {
+        Match match = matchRepository.findById(matchId).get();
+        match.setMatchStatus(MatchStatus.FINAL);
+        match.setDateFinalized(Calendar.getInstance());
+        matchRepository.save(match);
+        return match;
+    }
+    public List<Match> updateAllAutoToFinal() {
+        List<Match> autoToFinal = new ArrayList<>();
+         matchRepository.findAll().stream().filter(match -> match.getMatchStatus().equals(MatchStatus.AUTO))
+                .forEach(match -> {
+                    match.setMatchStatus(MatchStatus.FINAL);
+                    matchRepository.save(match);
+                    autoToFinal.add(match);
+                });
+        return autoToFinal;
+
+
+//        Match match = matchRepository.findById(matchId).get();
+//        match.setMatchStatus(MatchStatus.FINAL);
+//        match.setDateFinalized(Calendar.getInstance());
+//        matchRepository.save(match);
+//        return match;
+    }
+    ///////////////// APO EDW KAI KATW FTIAXNEIS NEO AUTO MATCH /////////////////////////////////////////////////////////
+    /**
+     * gets a list of the required skills from a registered job offer
      * @param jobId job id
      * @return this job's required skills
      */
-    ///////////////// APO EDW KAI KATW FTIAXNEIS NEO AUTO MATCH /////////////////////////////////////////////////////////
+
     private List<Skill> getSkillsFromJobOffer(int jobId) {
         List<Skill> skills = new ArrayList<>();
         Job job = jobRepository.findById(jobId).get();
@@ -81,6 +158,7 @@ public class MatchService {
             for (Skill sa : skillsFromJobApplicant)
                 if (sj.getId() == sa.getId()) {
                     matchedSkills.add(sj);
+                    break; // go to next job skill
                 }
         }
         return matchedSkills; // EXCEPTION WHEN THIS LIST IS EMPTY (NO MATCH)
@@ -116,109 +194,51 @@ public class MatchService {
         Job job = jobRepository.findById(jobId).get();//EXCEPTION IF JOB NOT NOT EXISTS
         Applicant applicant = applicantRepository.findById(applicantId).get();//EXCEPTION IF APPLICANT NOT NOT EXISTS
         Match match = new Match();
-        boolean isAutoMatch = isAutoMatch(jobId, applicantId);
-        if (isAutoMatch) { // DO NOTHING. DO YOU NEED A MESSAGE/EXCEPTIONS HERE?
-            job.setActive(false);
-            applicant.setActive(false);
-            match.setApplicant(applicant);
-            match.setJob(job);
-            match.setMatchStatus(MatchStatus.AUTO);
-            // DON'T FORGET TO SET finalizedDate WHEN CRITERIA IS MATCHED
-            matchRepository.save(match);
-        }
+        //boolean isAutoMatch = isAutoMatch(jobId, applicantId);
+        //if (isAutoMatch) { // DO NOTHING. DO YOU NEED A MESSAGE/EXCEPTIONS HERE?
+        job.setActive(false);
+        applicant.setActive(false);
+        match.setApplicant(applicant);
+        match.setJob(job);
+        match.setMatchStatus(MatchStatus.AUTO);
+        // DON'T FORGET TO SET finalizedDate WHEN CRITERIA IS MATCHED
+        //matchRepository.save(match);
+        //}
         return match;
     }
 
     ///////////////////////////////// EDW TELEIWNEI TO E N A AUTO MATCH ////////////////////////////////////////////////
-///////////  DO IT HARA
-    public List<Match> getAllAutoMatches() {
-    List<Match> automaticMatches = new ArrayList<>();
-        for (Job job : jobRepository.findAll()
-                                    .stream()
-                                    .filter(job -> job.isActive())
-                                    .collect(Collectors.toList())) {
-            for (Applicant applicant : applicantRepository.findAll()
-                                                            .stream()
-                                                            .filter(applicant -> applicant.isActive())
-                                                            .collect(Collectors.toList())) {
+
+    /**
+     * checks all job offers that are
+     *
+     * @return
+     */
+    public List<Match> findAllAutoMatches() {
+        List<Match> automaticMatches = new ArrayList<>();
+        List<Job> availableJobs = jobRepository.findAll()
+                .stream()
+                .filter(job -> job.isActive()) //get all active jobs and foreach...
+                .collect(Collectors.toList());
+        System.out.println(availableJobs.size());
+        List<Applicant> availableApplicants = applicantRepository.findAll()
+                .stream()
+                .filter(applicant -> applicant.isActive()) //get all active applicants and foreach...
+                .collect(Collectors.toList());
+        System.out.println(availableApplicants.size());
+        for (Job job : availableJobs) {
+            for (Applicant applicant : availableApplicants) {
                 if (isAutoMatch(job.getId(), applicant.getId())) {
                     Match match = getAutoMatch(job.getId(), applicant.getId());
-                    matchRepository.save(match);
+                    match = matchRepository.save(match);
                     automaticMatches.add(match);
                     break;
                 }
             }
-
-//        List<Job> allJobs = jobRepository.findAll().stream().collect(Collectors.toList());// kane oti exeis stin vasi mia lista
-//        List<Applicant> allApplicants = applicantRepository.findAll().stream().collect(Collectors.toList());
-//        List<Match> allAutoMatches = new ArrayList<>();
-//        for (Job j : allJobs) {
-//            int jobId = j.getId();
-//            for (Applicant a : allApplicants) {
-//                int applicantId = a.getId();
-//                if (isAutoMatch(jobId, applicantId)) { // if is not throw exception
-//                    allAutoMatches.add(getAutoMatch(jobId, applicantId));
-//                }
-//            }
-//        }
- //      return allAutoMatches;
         }
-        return automaticMatches;
+        return automaticMatches; //Exception check what happens when there is none
     }
 
-    /**
-     * finds all the manual matches from all matches
-     * @return a list of all manual matches
-     */
-    public List<Match> getAllManualMatches(){ // remember to set this private if you do not eventually make controller
-        return matchRepository.findAll()
-                    .stream()
-                    .filter(match -> match.getMatchStatus().equals(MatchStatus.MANUAL))
-                    .collect(Collectors.toList());
-
-    }
-
-    /**
-     * removes a certain match from matches
-     * @param id
-     */
-    public void deleteMatchById(int id) {
-        List<Match> manualMatches = getAllManualMatches();
-        manualMatches.remove(matchRepository.findById(id).get());
-    }
-
-    /**
-     * Saves a new match.
-     * Sets its Status to Manual
-     * Sets the respective applicant and job offer to INACTIVE
-     * @param matchDto get new Match Data from front end
-     * @return a new Match. which is also a manual match
-     */
-    public Match saveNewManualMatch(MatchDto matchDto) {
-        Applicant applicant = applicantRepository.findById(matchDto.getApplicantId()).get(); // exception if not exists
-        Job job = jobRepository.findById(matchDto.getJobId()).get();
-        Match match = new Match();
-        match.setApplicant(applicant);
-        match.setJob(job);
-        match.setMatchStatus(MatchStatus.MANUAL);
-        applicant.setActive(false);
-        job.setActive(false);
-        return matchRepository.save(match);
-    }
-
-    /**
-     * Updates an existing match and only allows the matchStatus field to be updated.
-     * Used as business logic to provide FINALIZED functionality
-     * Used as an update example.
-     * @param id match id
-     * @param matchDto get data from front end
-     * @return updated Match object (row in database)
-     */
-    public Match updateMatchToFinal(int id, MatchDto matchDto) {
-        Match match = matchRepository.findById(id).get();
-        match.setMatchStatus(MatchStatus.valueOf(matchDto.getMatchStatus()));
-        return null;
-    }
 
 
 

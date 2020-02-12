@@ -1,5 +1,5 @@
-INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address1', '1975-02-01','1','Bob','Marley', 'Athens')
-INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address2', '1990-03-10','3','AAA','Marley', 'Mykonos')
+INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address1', '1975-02-01','0','Bob','Marley', 'Athens')
+INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address2', '1990-03-10','1','AAA','Marley', 'Mykonos')
 INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address3', '1989-02-22','1','BBB','Marley', 'Athens')
 INSERT INTO [dbo].[applicant]([address],[dob],[education_level],[first_name],[last_name],[region])VALUES('address4', '2001-02-01','2','Da','Marley', 'Athens')
 
@@ -13,10 +13,12 @@ INSERT INTO [dbo].[skill]([skill_name])VALUES( 'ReACT')
 INSERT INTO [dbo].[skill]([skill_name])VALUES( 'Python')
 INSERT INTO [dbo].[skill]([skill_name])VALUES( 'Angular')
 --
-INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-01',1, 1,3)
-INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-02-10',1, 3,1)
-INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-28',3, 1,2)
+INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-01',0, 1,1)
+INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-02-10',0, 3,1)
+INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-28',1, 2,2)
 INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-28',1, 1,2)
+INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-28',0, 2,3)
+INSERT INTO [dbo].[match]([date_finalized],[match_status],[applicant_id],[job_id])VALUES('2020-01-28',2, 3,3)
 --
 INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(1,1)
 INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(1,3)
