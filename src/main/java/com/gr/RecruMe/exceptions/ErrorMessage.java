@@ -1,11 +1,7 @@
 package com.gr.RecruMe.exceptions;
 
-public class ErrorMessage extends Exception {
-    public static final String applicantNotFound = "The applicant does not exist. Try another id!";
+public class ErrorMessage {
+    public static final String APPLICANT_NOT_FOUND = "The applicant does not exist. Try another id!";
+    public static final String NO_ONE_IN_AGE_RANGE = "There is no applicant within this age range. Try another age range";
 
-    public static String getErrorDescription(Exception exception, Integer statusCode){
-        return String.format("<html><body><h2>Error Page</h2><div>Status code: <b>%s</b></div>"
-                        + "<div>Exception Message: <b>%s</b></div><body></html>",
-                statusCode, exception == null ? "N/A" : exception.getMessage());
-    }
 }

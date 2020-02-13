@@ -1,9 +1,8 @@
 package com.gr.RecruMe.services;
 
 import com.gr.RecruMe.dtos.ApplicantDto;
-import com.gr.RecruMe.dtos.ApplicantSkillDto;
 import com.gr.RecruMe.dtos.UpdateApplicantDto;
-import com.gr.RecruMe.exceptions.ApplicantNotFoundException;
+import com.gr.RecruMe.exceptions.NotFoundException;
 import com.gr.RecruMe.exceptions.ErrorMessage;
 import com.gr.RecruMe.models.*;
 import com.gr.RecruMe.repositories.ApplicantRepository;
@@ -54,9 +53,9 @@ public class ApplicantService {
      * @param id applicant's id
      * @return the corresponding applicant
      */
-    public Applicant getApplicantById(int id) throws ApplicantNotFoundException { //EXCEPTION IF NOT EXISTS
-        if(applicantRepository.findById(id).get() == null){
-            throw new ApplicantNotFoundException("id = " +id);
+    public Applicant getApplicantById(int id) throws NotFoundException { //EXCEPTION IF NOT EXISTS
+        if (applicantRepository.findById(id).orElse(null) == null) {
+            throw new NotFoundException(ErrorMessage.APPLICANT_NOT_FOUND + " id = " + id);
         }
         return applicantRepository.findById(id).get();
     }
@@ -98,12 +97,15 @@ public class ApplicantService {
      * birthday is not allowed to be updated
      * the fields of firstName and lastName are updated only of they are null in the existing applicant
      *
-     * @param id           to get applicant
+     * @param id                 to get applicant
      * @param updateApplicantDto requires new data for applicant fields
      * @return the updated applicant
      */
-    public Applicant updateApplicant(int id, UpdateApplicantDto updateApplicantDto) { // EXCEPTION IF NOT EXISTS
-        Applicant applicant = applicantRepository.findById(id).get();
+    public Applicant updateApplicant(int id, UpdateApplicantDto updateApplicantDto)throws NotFoundException { // EXCEPTION IF NOT EXISTS
+        Applicant applicant = applicantRepository.findById(id).orElse(null);
+        if(applicant == null){
+            throw new NotFoundException(ErrorMessage.APPLICANT_NOT_FOUND + " id = " + id);
+        }
         if ((updateApplicantDto.getFirstName() != null) && (applicant.getFirstName() != null))
             applicant.setFirstName(updateApplicantDto.getFirstName());
         if ((updateApplicantDto.getLastName() != null) && (applicant.getFirstName() != null))
@@ -155,16 +157,20 @@ public class ApplicantService {
      * @param ageTo   younger than
      * @return a list of the corresponding applicants
      */
-    public List<Applicant> getApplicantByAgeRange(int ageFrom, int ageTo) { // EXCEPTION IF NOT EXISTS
+    public List<Applicant> getApplicantByAgeRange(int ageFrom, int ageTo) throws NotFoundException {
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);// save current year to an integer variable
         int yearTo = thisYear - ageFrom; //calculate the corresponding year from the user's ageFrom input eg:2000 if ageFrom = 20
         int yearFrom = thisYear - ageTo; //calculate the corresponding year from the user's ageTo input eg:1980 if ageFrom = 40
-        return applicantRepository
+        List<Applicant> applicantsInRange = applicantRepository
                 .findAll()
                 .stream()
                 .filter(applicant -> applicant.getDob().get(Calendar.YEAR) >= yearFrom) //get all applicants younger than 40 years old
                 .filter(applicant -> applicant.getDob().get(Calendar.YEAR) <= yearTo) //get all applicants older than 20 years old
                 .collect(Collectors.toList());
+        if(applicantsInRange.isEmpty()){
+            throw new NotFoundException(ErrorMessage.NO_ONE_IN_AGE_RANGE);
+        }
+        return applicantsInRange;
     }
 
     public List<Applicant> getAllApplicantsBySkill(int skillId) { //EXCEPTION IF SKILL DOES NOT EXIST

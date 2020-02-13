@@ -1,11 +1,9 @@
 package com.gr.RecruMe.controllers;
 
 import com.gr.RecruMe.dtos.ApplicantDto;
-import com.gr.RecruMe.dtos.ApplicantSkillDto;
 import com.gr.RecruMe.dtos.UpdateApplicantDto;
-import com.gr.RecruMe.exceptions.ApplicantNotFoundException;
+import com.gr.RecruMe.exceptions.NotFoundException;
 import com.gr.RecruMe.models.Applicant;
-import com.gr.RecruMe.models.ApplicantSkill;
 import com.gr.RecruMe.services.ApplicantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +39,7 @@ public class ApplicantController {
      * @return the corresponding applicant. error if he does not ex
      */
     @GetMapping("applicant/{id}")
-    public Applicant getApplicantByController(@PathVariable int id) throws ApplicantNotFoundException {
+    public Applicant getApplicantByController(@PathVariable int id) throws NotFoundException {
         return applicantService.getApplicantById(id);
     }
 
@@ -61,7 +59,7 @@ public class ApplicantController {
      * @return the updated applicant
      */
     @PutMapping("applicant/{id}")
-    public Applicant updateApplicantController(@PathVariable int id, UpdateApplicantDto updateApplicantDto) {
+    public Applicant updateApplicantController(@PathVariable int id, UpdateApplicantDto updateApplicantDto) throws NotFoundException {
         return applicantService.updateApplicant(id, updateApplicantDto);
     }
     /**
@@ -93,7 +91,7 @@ public class ApplicantController {
      * @return a list of the corresponding applicants
      */
     @GetMapping("applicants/ageFrom/{ageFrom}/ageTo/{ageTo}")
-    public List<Applicant> getApplicantsByAgeRangeController(@PathVariable int ageFrom, @PathVariable int ageTo) {
+    public List<Applicant> getApplicantsByAgeRangeController(@PathVariable int ageFrom, @PathVariable int ageTo) throws NotFoundException {
         return applicantService.getApplicantByAgeRange(ageFrom, ageTo);
     }
 
