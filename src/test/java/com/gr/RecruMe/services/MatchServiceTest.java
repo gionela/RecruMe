@@ -6,9 +6,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MatchServiceTest {
 
-//    MatchService matchService = new MatchService();
-//    System.out.println( matchService.getSkillsFromJobOffer(1));
+    @Test
+    void getAllMatches() {
+    }
+
+    @Test
+    void getAllManualMatches() {
+    }
+
+    @Test
+    void getAllAutoMatches() {
+    }
+
     @Test
     void getSkillsFromJobOffer() {
+    }
+
+    @Test
+    void getSkillsFromApplicant() {
     }
 }

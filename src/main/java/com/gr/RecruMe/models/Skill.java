@@ -15,7 +15,6 @@ import java.util.List;
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotEmpty
     private int id;
     private String skillName;
 

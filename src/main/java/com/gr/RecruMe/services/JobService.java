@@ -118,7 +118,7 @@ public class JobService {
      * @param day
      * @return a list of all jobs posted on the required date
      */
-    public List<Job> getJobsByDatePosted(int year, int month, int day) {
+    public List<Job> getJobsByDatePosted(int year, int month, int day) { //exception if none posted in that date
         return jobRepository.findAll()
                 .stream()
                 .filter(job -> job.getPostedDate().get(Calendar.YEAR) == year)

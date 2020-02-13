@@ -3,6 +3,8 @@ package com.gr.RecruMe.services;
 import com.gr.RecruMe.dtos.ApplicantDto;
 import com.gr.RecruMe.dtos.ApplicantSkillDto;
 import com.gr.RecruMe.dtos.UpdateApplicantDto;
+import com.gr.RecruMe.exceptions.ApplicantNotFoundException;
+import com.gr.RecruMe.exceptions.ErrorMessage;
 import com.gr.RecruMe.models.*;
 import com.gr.RecruMe.repositories.ApplicantRepository;
 import com.gr.RecruMe.repositories.ApplicantSkillRepository;
@@ -52,7 +54,10 @@ public class ApplicantService {
      * @param id applicant's id
      * @return the corresponding applicant
      */
-    public Applicant getApplicantById(int id) { //EXCEPTION IF NOT EXISTS
+    public Applicant getApplicantById(int id) throws ApplicantNotFoundException { //EXCEPTION IF NOT EXISTS
+        if(applicantRepository.findById(id).get() == null){
+            throw new ApplicantNotFoundException("id = " +id);
+        }
         return applicantRepository.findById(id).get();
     }
 

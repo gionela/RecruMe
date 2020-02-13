@@ -3,6 +3,7 @@ package com.gr.RecruMe.controllers;
 import com.gr.RecruMe.dtos.ApplicantDto;
 import com.gr.RecruMe.dtos.ApplicantSkillDto;
 import com.gr.RecruMe.dtos.UpdateApplicantDto;
+import com.gr.RecruMe.exceptions.ApplicantNotFoundException;
 import com.gr.RecruMe.models.Applicant;
 import com.gr.RecruMe.models.ApplicantSkill;
 import com.gr.RecruMe.services.ApplicantService;
@@ -40,7 +41,7 @@ public class ApplicantController {
      * @return the corresponding applicant. error if he does not ex
      */
     @GetMapping("applicant/{id}")
-    public Applicant getApplicantByController(@PathVariable int id) {
+    public Applicant getApplicantByController(@PathVariable int id) throws ApplicantNotFoundException {
         return applicantService.getApplicantById(id);
     }
 

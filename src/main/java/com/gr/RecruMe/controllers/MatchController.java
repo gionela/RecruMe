@@ -24,16 +24,16 @@ public class MatchController {
         this.skillService = skillService;
     }
 
-       @GetMapping("test/")
+//       @GetMapping("test/")
 //   public List<Skill> testController(@PathVariable int id1,@PathVariable int id2){
 //        return matchService.compareSkillsLists(id1,id2 );
 //    }
 //    public Match testController(@PathVariable int id1, @PathVariable int id2) {
 //        return matchService.getAutoMatch(id1, id2);
 //    }
-       public List<Skill> testController(){
-        return matchService.getSkillsFromJobOffer(1);
-       }
+//       public List<Match> testController(){
+//        return matchService.findAllAutoMatches();
+//       }
 
     /**
      * get all matches
@@ -66,8 +66,18 @@ public class MatchController {
     }
 
     /**
+     * Once invoked checks all available jobs in db.
+     * For each checks all available applicants in db
+     * if all required skill is matched by the offered skill create that automatic match and adds it to a match list
+     * @return the list of all automatic matches
+     */
+    @GetMapping("matches/createAutomatic")
+        public List<Match> createAllAutoMatchesController(){
+            return matchService.createAllAutoMatches();
+        }
+
+    /**
      * Saves new Manual Match
-     *
      * @param matchDto contains frontend data for new match's fields
      * @return save new match
      */
