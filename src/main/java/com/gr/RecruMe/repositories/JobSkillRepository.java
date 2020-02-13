@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface JobSkillRepository extends JpaRepository<JobSkill, Integer> {
-    @Query(value ="    select TOP 1 skill_id\n" +
+    @Query(value ="    select TOP 2 skill_id\n" +
             "  FROM job_skill\n" +
             "  GROUP BY (skill_id)\n" +
             "  ORDER BY COUNT (skill_id) DESC ", nativeQuery = true)
-    Integer getMostRequestedSkill();
+    List<Integer> getMostRequestedSkills();
 }

@@ -24,6 +24,7 @@ INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(1,1)
 INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(1,3)
 INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(1,4)
 INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(4,2)
+INSERT INTO [dbo].[applicant_skill]([applicant_id],[skill_id])VALUES(3,3)
 --
 INSERT INTO [dbo].[job_skill]([job_id],[skill_id])VALUES(1,1)
 INSERT INTO [dbo].[job_skill]([job_id],[skill_id])VALUES(1,3)

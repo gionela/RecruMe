@@ -3,28 +3,37 @@ package com.gr.RecruMe.controllers;
 
 import com.gr.RecruMe.dtos.MatchDto;
 import com.gr.RecruMe.models.Match;
+import com.gr.RecruMe.models.Skill;
 import com.gr.RecruMe.services.MatchService;
+import com.gr.RecruMe.services.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("recrume")
 public class MatchController {
     private MatchService matchService;
+    private SkillService skillService;
 
     @Autowired
-    public MatchController(MatchService matchService) {
+    public MatchController(MatchService matchService, SkillService skillService) {
+
         this.matchService = matchService;
+        this.skillService = skillService;
     }
 
-//       @GetMapping("test/")
+       @GetMapping("test/")
 //   public List<Skill> testController(@PathVariable int id1,@PathVariable int id2){
 //        return matchService.compareSkillsLists(id1,id2 );
 //    }
 //    public Match testController(@PathVariable int id1, @PathVariable int id2) {
 //        return matchService.getAutoMatch(id1, id2);
 //    }
+       public List<Skill> testController(){
+        return matchService.getSkillsFromJobOffer(1);
+       }
 
     /**
      * get all matches

@@ -103,6 +103,7 @@ public class MatchService {
          matchRepository.findAll().stream().filter(match -> match.getMatchStatus().equals(MatchStatus.AUTO))
                 .forEach(match -> {
                     match.setMatchStatus(MatchStatus.FINAL);
+                    match.setDateFinalized(Calendar.getInstance());
                     matchRepository.save(match);
                     autoToFinal.add(match);
                 });
@@ -122,7 +123,7 @@ public class MatchService {
      * @return this job's required skills
      */
 
-    private List<Skill> getSkillsFromJobOffer(int jobId) {
+    public List<Skill> getSkillsFromJobOffer(int jobId) {
         List<Skill> skills = new ArrayList<>();
         Job job = jobRepository.findById(jobId).get();
         job.getJobSkills().forEach(jobSkill -> skills.add(jobSkill.getSkill()));
@@ -135,7 +136,7 @@ public class MatchService {
      * @param applicantId applicant id
      * @return this applicant's required skills
      */
-    private List<Skill> getSkillsFromApplicant(int applicantId) {
+    public List<Skill> getSkillsFromApplicant(int applicantId) {
         List<Skill> skills = new ArrayList<>();
         Applicant applicant = applicantRepository.findById(applicantId).get();
         applicant.getApplicantSkills().forEach(applicantSkill -> skills.add(applicantSkill.getSkill()));
@@ -220,26 +221,27 @@ public class MatchService {
                 .stream()
                 .filter(job -> job.isActive()) //get all active jobs and foreach...
                 .collect(Collectors.toList());
-        System.out.println(availableJobs.size());
+   //     System.out.println(availableJobs.size());
         List<Applicant> availableApplicants = applicantRepository.findAll()
                 .stream()
                 .filter(applicant -> applicant.isActive()) //get all active applicants and foreach...
                 .collect(Collectors.toList());
-        System.out.println(availableApplicants.size());
+   //     System.out.println(availableApplicants.size());
         for (Job job : availableJobs) {
             for (Applicant applicant : availableApplicants) {
-                if (isAutoMatch(job.getId(), applicant.getId())) {
-                    Match match = getAutoMatch(job.getId(), applicant.getId());
-                    match = matchRepository.save(match);
-                    automaticMatches.add(match);
-                    break;
+                if(getSkillsFromApplicant(applicant.getId()).containsAll(getSkillsFromJobOffer(job.getId())));
+                Match match = new Match();
+                job.setActive(false);
+                applicant.setActive(false);
+                match.setMatchStatus(MatchStatus.AUTO);
+                match.setApplicant(applicant);
+                match.setJob(job);
+                match = matchRepository.save(match);
+                automaticMatches.add(match);
+                break;
                 }
             }
-        }
         return automaticMatches; //Exception check what happens when there is none
-    }
-
-
-
+        }
 
 }
