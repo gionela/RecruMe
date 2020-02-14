@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Controller to load data from external sources to database
+ */
 @RestController
 @RequestMapping("recrume/reports")
 public class ReportController {

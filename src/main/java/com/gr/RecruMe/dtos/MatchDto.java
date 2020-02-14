@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Data transfer object to request data input for new manual match
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,5 +1,8 @@
 package com.gr.RecruMe.exceptions;
 
+/**
+ * Miscallenues utilities used for Exception / Error handling / throwing
+ */
 public class ErrorUtility {
 
     public static String formatToHtml(Exception exception, Integer responseStatusCode){

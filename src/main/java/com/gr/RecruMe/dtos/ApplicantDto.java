@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
+/**
+ * Data transfer object to request data input for new applicant
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

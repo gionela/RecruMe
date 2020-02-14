@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Data transfer object to request data input for updating an existing applicant
+ * Applies restrictions to what end user can actually update
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Controller to display appropriate end point when errors/exceptions occurs
+ */
+
 @RestController
 public class RecruMeErrorController implements ErrorController {
     @RequestMapping("error")

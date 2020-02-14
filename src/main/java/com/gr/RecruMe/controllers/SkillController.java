@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller to send/receive data for all Skill associated services
+ */
+
 @RestController
 @RequestMapping("recrume")
 public class SkillController {

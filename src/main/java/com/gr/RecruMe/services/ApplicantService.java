@@ -173,9 +173,12 @@ public class ApplicantService {
         return applicantsInRange;
     }
 
-    public List<Applicant> getAllApplicantsBySkill(int skillId) { //EXCEPTION IF SKILL DOES NOT EXIST
+    public List<Applicant> getAllApplicantsBySkill(int skillId) throws NotFoundException {
         List<ApplicantSkill> as = applicantSkillRepository.findAll()
                 .stream().filter(applicantSkill -> applicantSkill.getSkill().getId() == skillId).collect(Collectors.toList());
+        if(as.isEmpty()){
+            throw new NotFoundException(ErrorMessage.SKILL_NOT_FOUND);
+        }
 
         List<Applicant> applicantsThatHaveTheSkill = new ArrayList<>();
         for (ApplicantSkill a : as) {
@@ -184,17 +187,17 @@ public class ApplicantService {
         return applicantsThatHaveTheSkill;
     }
 
-//    /**
-//     * sets applicant inactive (soft delete)
-//     * @param id applicant id
-//     * @return updated applicant instance
-//     */
-//    public Applicant softDeleteApplicant(int id) {
-//        Applicant applicant = applicantRepository.findById(id).get();
-//        if (applicant == null)
-//            return null;
-//        applicant.setActive(false);
-//        return applicantRepository.save(applicant);
-//    }
+    /**
+     * sets applicant inactive (soft delete)
+     * @param id applicant id
+     * @return updated applicant instance
+     */
+    public Applicant softDeleteApplicant(int id) { //make end point??? or set private
+        Applicant applicant = applicantRepository.findById(id).get();
+        if (applicant == null)
+            return null;
+        applicant.setActive(false);
+        return applicantRepository.save(applicant);
+    }
 
 }

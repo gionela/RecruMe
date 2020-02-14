@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller to send/receive data for all Applicant - Job Offer match associated services
+ */
+
 @RestController
 @RequestMapping("recrume")
 public class MatchController {

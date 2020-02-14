@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller to send/receive data for all Applicant associated services
+ */
 @RestController
 @RequestMapping("recrume")
 public class ApplicantController {
@@ -96,7 +99,7 @@ public class ApplicantController {
     }
 
     @GetMapping("applicants/skill/{skillId}")
-    public List<Applicant> getApplicantsBySkillController(@PathVariable int skillId){ //dwse ton kwdiko tou skill
+    public List<Applicant> getApplicantsBySkillController(@PathVariable int skillId) throws NotFoundException { //dwse ton kwdiko tou skill
         return applicantService.getAllApplicantsBySkill(skillId);
     }
 
