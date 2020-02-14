@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface JobSkillRepository extends JpaRepository<JobSkill, Integer> {
-    @Query(value ="    select TOP 2 skill_id\n" +
+    @Query(value ="    select TOP 4 skill_id\n" +
             "  FROM job_skill\n" +
             "  GROUP BY (skill_id)\n" +
             "  ORDER BY COUNT (skill_id) DESC ", nativeQuery = true)

@@ -27,4 +27,7 @@ public class Skill {
     @JsonIgnore
     private List<JobSkill> skillJobSkill;
 
+    public Skill(String skillName) {
+        this.skillName = skillName;
+    }
 }

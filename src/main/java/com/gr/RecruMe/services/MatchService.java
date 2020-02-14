@@ -147,7 +147,7 @@ public class MatchService {
     /**
      * checks all job offers
      *
-     * @return al list of those that are matched by an applicant
+     * @return a list of those that are matched by an applicant
      */
     public List<Match> createAllAutoMatches() {
         List<Match> automaticMatches = new ArrayList<>();

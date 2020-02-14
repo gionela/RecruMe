@@ -14,4 +14,6 @@ public interface SkillRepository extends JpaRepository<Skill,Integer> {
             "FROM skill as s\n" +
             "where (s.id NOt in (SELECT DISTINCT skill_id from applicant_skill)) ", nativeQuery = true)
     List<Integer> getNotMatchedByAppSkills();
+
+    Skill findFirstBySkillName(String skillName);
 }

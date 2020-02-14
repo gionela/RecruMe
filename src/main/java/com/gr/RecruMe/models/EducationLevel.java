@@ -9,7 +9,7 @@ import java.util.Map;
  * EN PROKEIMENW DOULEYEIS ME TIS VASIS DEFAULT TIMI(AUTO -> DB.VALUE = 0)
  */
 public enum EducationLevel {
-    HIGHSCHOOL(1), 
+    HIGH_SCHOOL(1),
     BACHELOR_DEGREE(2), 
     MASTER_DEGREE(3), 
     PHD(4);

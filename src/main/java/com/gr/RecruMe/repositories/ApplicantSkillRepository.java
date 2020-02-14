@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ApplicantSkillRepository extends JpaRepository<ApplicantSkill, Integer> {
 
-    @Query(value = "select TOP 2 skill_id\n" +
+    @Query(value = "select TOP 4 skill_id\n" +
             "    FROM applicant_skill\n" +
             "    GROUP BY (skill_id)\n" +
             "    ORDER BY COUNT (skill_id) DESC ", nativeQuery = true)
